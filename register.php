@@ -81,7 +81,7 @@ include 'includes/header.php';
                         name="username" 
                         value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>"
                         required
-                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); color: var(--text); font-size: 1rem;"
+                        style="width: 100%; font-size: 1rem;"
                     >
                 </div>
                 
@@ -93,7 +93,7 @@ include 'includes/header.php';
                         name="email" 
                         value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
                         required
-                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); color: var(--text); font-size: 1rem;"
+                        style="width: 100%; font-size: 1rem;"
                     >
                 </div>
                 
@@ -104,7 +104,7 @@ include 'includes/header.php';
                         id="password" 
                         name="password" 
                         required
-                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); color: var(--text); font-size: 1rem;"
+                        style="width: 100%; font-size: 1rem;"
                     >
                     <small style="color: var(--text-secondary); display: block; margin-top: 5px;">At least 6 characters</small>
                 </div>
@@ -116,7 +116,7 @@ include 'includes/header.php';
                         id="confirm_password" 
                         name="confirm_password" 
                         required
-                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); color: var(--text); font-size: 1rem;"
+                        style="width: 100%; font-size: 1rem;"
                     >
                 </div>
                 

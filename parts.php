@@ -139,7 +139,7 @@ include 'includes/header.php';
 
                     <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
                         <a href="/details.php?part_id=<?php echo $part['part_id']; ?><?php echo $buildId ? '&build_id=' . $buildId : ''; ?>" class="btn" style="flex: 1;">View Details</a>
-                        <button onclick="addToBuild(<?php echo $part['part_id']; ?>, <?php echo $buildId ?? 'null'; ?>)" class="btn btn-secondary">Add to Build</button>
+                        <button onclick="addToBuild(<?php echo $part['part_id']; ?>, '<?php echo $buildId ?? ''; ?>')" class="btn btn-secondary">Add to Build</button>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -151,6 +151,11 @@ include 'includes/header.php';
 
 <script>
 function addToBuild(partId, buildId) {
+    // If buildId is empty string or null, set it to 'new'
+    if (!buildId || buildId === '') {
+        buildId = 'new';
+    }
+    
     fetch('/api/add_to_build.php', {
         method: 'POST',
         headers: {
@@ -161,13 +166,8 @@ function addToBuild(partId, buildId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            if (buildId) {
-                window.location.href = `/build.php?build_id=${buildId}`;
-            } else {
-                // Handle case where buildId is not provided (e.g., create new build)
-                console.log("Part added, but no build ID provided. Redirecting to build page.");
-                // Potentially redirect to a page to create a new build or select an existing one
-            }
+            // Redirect to the build page with the returned build_id
+            window.location.href = `/build.php?build_id=${data.build_id}`;
         } else {
             alert('Failed to add part to build: ' + data.message);
         }

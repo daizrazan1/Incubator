@@ -71,7 +71,7 @@ include 'includes/header.php';
                         value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>"
                         required
                         autofocus
-                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); color: var(--text); font-size: 1rem;"
+                        style="width: 100%; font-size: 1rem;"
                     >
                 </div>
                 
@@ -82,7 +82,7 @@ include 'includes/header.php';
                         id="password" 
                         name="password" 
                         required
-                        style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); color: var(--text); font-size: 1rem;"
+                        style="width: 100%; font-size: 1rem;"
                     >
                 </div>
                 
