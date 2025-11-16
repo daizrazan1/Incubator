@@ -8,7 +8,7 @@ if (!$partId) {
     exit;
 }
 
-$part = fetchOne("SELECT * FROM parts WHERE part_id = :id", [':id' => $partId]);
+$part = fetchOne("SELECT * FROM parts WHERE part_id = ?", [$partId]);
 
 if (!$part) {
     header('Location: /parts.php');
@@ -18,16 +18,16 @@ if (!$part) {
 $merchants = fetchAll("SELECT pp.*, m.merchant_name, m.website_url 
     FROM part_prices pp 
     JOIN merchants m ON pp.merchant_id = m.merchant_id 
-    WHERE pp.part_id = :id AND pp.in_stock = 1
-    ORDER BY pp.price ASC", [':id' => $partId]);
+    WHERE pp.part_id = ? AND pp.in_stock = 1
+    ORDER BY pp.price ASC", [$partId]);
 
 $reviews = fetchAll("SELECT r.*, u.username 
     FROM reviews r 
     LEFT JOIN users u ON r.user_id = u.user_id 
-    WHERE r.part_id = :id 
-    ORDER BY r.created_at DESC", [':id' => $partId]);
+    WHERE r.part_id = ? 
+    ORDER BY r.created_at DESC", [$partId]);
 
-$avgRating = fetchOne("SELECT AVG(rating) as avg FROM reviews WHERE part_id = :id", [':id' => $partId]);
+$avgRating = fetchOne("SELECT AVG(rating) as avg FROM reviews WHERE part_id = ?", [$partId]);
 
 $pageTitle = htmlspecialchars($part['part_name']) . ' - PC Part Sniper';
 
