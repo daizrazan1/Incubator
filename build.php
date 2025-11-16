@@ -46,10 +46,10 @@ include 'includes/header.php';
                 </div>
             <?php endif; ?>
             
-            <?php foreach ($categories as $cat): ?>
-                <div class="build-section">
-                    <h3><?php echo $cat; ?></h3>
-                    
+            <div class="build-section">
+                <h3>Selected Components</h3>
+                
+                <?php foreach ($categories as $cat): ?>
                     <?php
                     $categoryPart = null;
                     foreach ($buildParts as $part) {
@@ -65,38 +65,51 @@ include 'includes/header.php';
                         $partCompat = $compatibilityResult['part_compatibility'][$categoryPart['part_id']] ?? ['compatible' => true, 'issues' => []];
                         $compatClass = $partCompat['compatible'] ? 'compatible' : 'incompatible';
                         ?>
-                        <div class="build-item <?php echo $compatClass; ?>">
+                        <div class="build-item-compact <?php echo $compatClass; ?>">
+                            <div style="min-width: 100px;">
+                                <strong style="color: var(--accent);"><?php echo $cat; ?></strong>
+                            </div>
                             <div style="flex: 1;">
                                 <strong><?php echo htmlspecialchars($categoryPart['part_name']); ?></strong>
-                                <p style="color: var(--text-secondary); margin: 0.5rem 0;">
-                                    <?php echo htmlspecialchars($categoryPart['brand']); ?> 
-                                    <?php echo htmlspecialchars($categoryPart['model'] ?? ''); ?>
-                                </p>
-                                <?php if ($categoryPart['price']): ?>
-                                    <span class="price" style="font-size: 1.2rem;">
-                                        $<?php echo number_format($categoryPart['price'], 2); ?>
-                                    </span>
-                                <?php endif; ?>
+                                <span style="color: var(--text-secondary); margin-left: 0.5rem; font-size: 0.9rem;">
+                                    <?php echo htmlspecialchars($categoryPart['brand']); ?>
+                                </span>
                                 <?php if (!empty($partCompat['issues'])): ?>
-                                    <div style="margin-top: 0.5rem;">
+                                    <div style="margin-top: 0.25rem;">
                                         <?php foreach ($partCompat['issues'] as $issue): ?>
-                                            <div style="color: #FF3B3B; font-size: 0.9rem;">⚠ <?php echo htmlspecialchars($issue); ?></div>
+                                            <div style="color: #FF3B3B; font-size: 0.85rem;">⚠ <?php echo htmlspecialchars($issue); ?></div>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            <div>
-                                <a href="/parts.php?category=<?php echo urlencode($cat); ?>" class="btn btn-secondary">Change</a>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <?php if ($categoryPart['price']): ?>
+                                    <span class="price" style="font-size: 1rem;">
+                                        $<?php echo number_format($categoryPart['price'], 2); ?>
+                                    </span>
+                                <?php endif; ?>
+                                <a href="/parts.php?category=<?php echo urlencode($cat); ?>&build_id=<?php echo $buildId; ?>" 
+                                   class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Change</a>
+                                <button onclick="removePart(<?php echo $categoryPart['build_part_id']; ?>)" 
+                                        class="btn-remove" title="Remove part">✕</button>
                             </div>
                         </div>
                     <?php else: ?>
-                        <div class="build-item">
-                            <p style="color: var(--text-secondary);">No <?php echo $cat; ?> selected</p>
-                            <a href="/parts.php?category=<?php echo urlencode($cat); ?>" class="btn">Choose <?php echo $cat; ?></a>
+                        <div class="build-item-compact">
+                            <div style="min-width: 100px;">
+                                <strong style="color: var(--text-secondary);"><?php echo $cat; ?></strong>
+                            </div>
+                            <div style="flex: 1;">
+                                <span style="color: var(--text-secondary);">Not selected</span>
+                            </div>
+                            <div>
+                                <a href="/parts.php?category=<?php echo urlencode($cat); ?>&build_id=<?php echo $buildId; ?>" 
+                                   class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Choose</a>
+                            </div>
                         </div>
                     <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
             
             <?php if (!empty($buildParts) && $compatibilityResult): ?>
                 <div class="build-section">

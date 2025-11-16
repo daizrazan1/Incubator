@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addToBuild(partId) {
-    const buildId = localStorage.getItem('currentBuildId') || 'new';
+    const urlParams = new URLSearchParams(window.location.search);
+    const buildId = urlParams.get('build_id') || localStorage.getItem('currentBuildId') || 'new';
     
     fetch('/api/add_to_build.php', {
         method: 'POST',
@@ -35,9 +36,9 @@ function addToBuild(partId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Part added to build!');
             if (data.build_id) {
                 localStorage.setItem('currentBuildId', data.build_id);
+                window.location.href = '/build.php?build_id=' + data.build_id;
             }
         } else {
             alert('Error: ' + data.message);
@@ -46,6 +47,34 @@ function addToBuild(partId) {
     .catch(error => {
         console.error('Error:', error);
         alert('Failed to add part to build');
+    });
+}
+
+function removePart(buildPartId) {
+    if (!confirm('Are you sure you want to remove this part?')) {
+        return;
+    }
+    
+    fetch('/api/remove_from_build.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            build_part_id: buildPartId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to remove part');
     });
 }
 

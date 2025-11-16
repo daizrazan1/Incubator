@@ -29,11 +29,11 @@ include 'includes/header.php';
                 <?php else: ?>
                     <?php foreach ($builds as $build): ?>
                         <?php
-                        $partCount = fetchOne("SELECT COUNT(*) as count FROM build_parts WHERE build_id = :id", 
-                                             [':id' => $build['build_id']]);
+                        $partCount = fetchOne("SELECT COUNT(*) as count FROM build_parts WHERE build_id = ?", 
+                                             [$build['build_id']]);
                         $buildParts = fetchAll("SELECT p.price FROM build_parts bp 
                                               JOIN parts p ON bp.part_id = p.part_id 
-                                              WHERE bp.build_id = :id", [':id' => $build['build_id']]);
+                                              WHERE bp.build_id = ?", [$build['build_id']]);
                         $total = 0;
                         foreach ($buildParts as $part) {
                             $total += $part['price'] ?? 0;
