@@ -6,9 +6,9 @@ $pageTitle = 'PC Part Sniper - Build Your Dream PC';
 $featuredBuilds = fetchAll("SELECT b.*, u.username 
     FROM builds b 
     LEFT JOIN users u ON b.user_id = u.user_id 
-    WHERE b.is_public = 1 
+    WHERE b.is_public = ? 
     ORDER BY b.created_at DESC 
-    LIMIT 6");
+    LIMIT 6", [1]);
 
 $trendingParts = fetchAll("SELECT p.*, COUNT(bp.build_part_id) as popularity
     FROM parts p

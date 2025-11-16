@@ -4,13 +4,13 @@ $pageTitle = 'My Profile - PC Part Sniper';
 
 $userId = 1;
 
-$user = fetchOne("SELECT * FROM users WHERE user_id = :id", [':id' => $userId]);
-$builds = fetchAll("SELECT * FROM builds WHERE user_id = :id ORDER BY updated_at DESC", [':id' => $userId]);
+$user = fetchOne("SELECT * FROM users WHERE user_id = ?", [$userId]);
+$builds = fetchAll("SELECT * FROM builds WHERE user_id = ? ORDER BY updated_at DESC", [$userId]);
 $reviews = fetchAll("SELECT r.*, p.part_name 
     FROM reviews r 
     JOIN parts p ON r.part_id = p.part_id 
-    WHERE r.user_id = :id 
-    ORDER BY r.created_at DESC", [':id' => $userId]);
+    WHERE r.user_id = ? 
+    ORDER BY r.created_at DESC", [$userId]);
 
 include 'includes/header.php';
 ?>

@@ -1,4 +1,9 @@
 <?php
+// Start session before any output
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Database configuration
 // NOTE: For production, move these credentials to environment variables
 // Example: define('DB_HOST', getenv('DB_HOST'));
@@ -117,11 +122,10 @@ function lastInsertId() {
     return $db->insert_id;
 }
 
-// Start session if not already started
+// Start session if not already started (session already started at top of file)
 function startSession() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+    // Session is already started at the top of this file
+    return true;
 }
 
 // Check if user is logged in

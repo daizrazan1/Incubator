@@ -10,12 +10,12 @@ $totalPrice = 0;
 $compatibilityResult = null;
 
 if ($buildId) {
-    $build = fetchOne("SELECT * FROM builds WHERE build_id = :id", [':id' => $buildId]);
+    $build = fetchOne("SELECT * FROM builds WHERE build_id = ?", [$buildId]);
     if ($build) {
         $buildParts = fetchAll("SELECT bp.*, p.* 
             FROM build_parts bp 
             JOIN parts p ON bp.part_id = p.part_id 
-            WHERE bp.build_id = :id", [':id' => $buildId]);
+            WHERE bp.build_id = ?", [$buildId]);
         
         foreach ($buildParts as $part) {
             $totalPrice += $part['price'] ?? 0;

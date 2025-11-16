@@ -15,38 +15,37 @@ $sql = "SELECT p.*, MIN(pp.price) as min_price
         WHERE 1=1";
 
 $params = [];
-$paramIndex = 1;
 
 if ($query) {
-    $sql .= " AND (p.part_name LIKE :query OR p.brand LIKE :query2 OR p.model LIKE :query3)";
-    $params[':query'] = '%' . $query . '%';
-    $params[':query2'] = '%' . $query . '%';
-    $params[':query3'] = '%' . $query . '%';
+    $sql .= " AND (p.part_name LIKE ? OR p.brand LIKE ? OR p.model LIKE ?)";
+    $params[] = '%' . $query . '%';
+    $params[] = '%' . $query . '%';
+    $params[] = '%' . $query . '%';
 }
 
 if ($category) {
-    $sql .= " AND p.category = :category";
-    $params[':category'] = $category;
+    $sql .= " AND p.category = ?";
+    $params[] = $category;
 }
 
 if ($brand) {
-    $sql .= " AND p.brand = :brand";
-    $params[':brand'] = $brand;
+    $sql .= " AND p.brand = ?";
+    $params[] = $brand;
 }
 
 if ($minPrice) {
-    $sql .= " AND p.price >= :minPrice";
-    $params[':minPrice'] = $minPrice;
+    $sql .= " AND p.price >= ?";
+    $params[] = $minPrice;
 }
 
 if ($maxPrice) {
-    $sql .= " AND p.price <= :maxPrice";
-    $params[':maxPrice'] = $maxPrice;
+    $sql .= " AND p.price <= ?";
+    $params[] = $maxPrice;
 }
 
 if ($isUsed !== '') {
-    $sql .= " AND p.is_used = :isUsed";
-    $params[':isUsed'] = $isUsed;
+    $sql .= " AND p.is_used = ?";
+    $params[] = $isUsed;
 }
 
 $sql .= " GROUP BY p.part_id ORDER BY p.created_at DESC";
