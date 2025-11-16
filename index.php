@@ -1,5 +1,6 @@
 <?php
 require_once 'db_config.php';
+startSession();
 $pageTitle = 'PC Part Sniper - Build Your Dream PC';
 
 $featuredBuilds = fetchAll("SELECT b.*, u.username 

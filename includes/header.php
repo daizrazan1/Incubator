@@ -16,8 +16,20 @@
                 <li><a href="/index.php">Home</a></li>
                 <li><a href="/parts.php">Browse Parts</a></li>
                 <li><a href="/build.php">Build PC</a></li>
-                <li><a href="/profile.php">My Profile</a></li>
-                <li><a href="/contact.php">Contact</a></li>
+                <?php if (isLoggedIn()): ?>
+                    <li><a href="/profile.php">My Profile</a></li>
+                    <li><a href="/contact.php">Contact</a></li>
+                    <li>
+                        <span style="color: var(--primary); margin-right: 10px;">
+                            Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                        </span>
+                        <a href="/logout.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Logout</a>
+                    </li>
+                <?php else: ?>
+                    <li><a href="/contact.php">Contact</a></li>
+                    <li><a href="/login.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Login</a></li>
+                    <li><a href="/register.php" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">Register</a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
