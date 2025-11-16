@@ -13,33 +13,32 @@ if (!$partId) {
 }
 
 if ($buildId === 'new' || !$buildId) {
-    execute("INSERT INTO builds (user_id, build_name) VALUES (1, 'My Build')", []);
-    $db = getDB();
-    $buildId = $db->lastInsertRowID();
+    execute("INSERT INTO builds (user_id, build_name) VALUES (?, ?)", [1, 'My Build']);
+    $buildId = lastInsertId();
 }
 
-$part = fetchOne("SELECT * FROM parts WHERE part_id = :id", [':id' => $partId]);
+$part = fetchOne("SELECT * FROM parts WHERE part_id = ?", [$partId]);
 
 if (!$part) {
     echo json_encode(['success' => false, 'message' => 'Part not found']);
     exit;
 }
 
-$existing = fetchOne("SELECT * FROM build_parts WHERE build_id = :build_id AND category = :category", 
-                     [':build_id' => $buildId, ':category' => $part['category']]);
+$existing = fetchOne("SELECT * FROM build_parts WHERE build_id = ? AND category = ?", 
+                     [$buildId, $part['category']]);
 
 if ($existing) {
-    execute("UPDATE build_parts SET part_id = :part_id WHERE build_part_id = :id", 
-           [':part_id' => $partId, ':id' => $existing['build_part_id']]);
+    execute("UPDATE build_parts SET part_id = ? WHERE build_part_id = ?", 
+           [$partId, $existing['build_part_id']]);
 } else {
-    execute("INSERT INTO build_parts (build_id, part_id, category) VALUES (:build_id, :part_id, :category)",
-           [':build_id' => $buildId, ':part_id' => $partId, ':category' => $part['category']]);
+    execute("INSERT INTO build_parts (build_id, part_id, category) VALUES (?, ?, ?)",
+           [$buildId, $partId, $part['category']]);
 }
 
 $buildParts = fetchAll("SELECT bp.*, p.* 
     FROM build_parts bp 
     JOIN parts p ON bp.part_id = p.part_id 
-    WHERE bp.build_id = :id", [':id' => $buildId]);
+    WHERE bp.build_id = ?", [$buildId]);
 
 $compatibility = checkCompatibility($buildParts);
 

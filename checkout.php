@@ -9,7 +9,7 @@ if (!$buildId) {
     exit;
 }
 
-$build = fetchOne("SELECT * FROM builds WHERE build_id = :id", [':id' => $buildId]);
+$build = fetchOne("SELECT * FROM builds WHERE build_id = ?", [$buildId]);
 
 if (!$build) {
     header('Location: /build.php');
@@ -28,9 +28,9 @@ foreach ($buildParts as $part) {
     $merchants = fetchAll("SELECT pp.*, m.merchant_name, m.website_url 
         FROM part_prices pp 
         JOIN merchants m ON pp.merchant_id = m.merchant_id 
-        WHERE pp.part_id = :id AND pp.in_stock = 1
+        WHERE pp.part_id = ? AND pp.in_stock = 1
         ORDER BY pp.price ASC 
-        LIMIT 1", [':id' => $part['part_id']]);
+        LIMIT 1", [$part['part_id']]);
     
     if (!empty($merchants)) {
         $partsMerchants[$part['part_id']] = $merchants[0];

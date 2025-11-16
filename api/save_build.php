@@ -9,15 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = 1;
     
     if ($buildId) {
-        execute("UPDATE builds SET build_name = :name, description = :desc, is_public = :public, updated_at = CURRENT_TIMESTAMP 
-                WHERE build_id = :id",
-               [':name' => $buildName, ':desc' => $description, ':public' => $isPublic, ':id' => $buildId]);
+        execute("UPDATE builds SET build_name = ?, description = ?, is_public = ?, updated_at = CURRENT_TIMESTAMP 
+                WHERE build_id = ?",
+               [$buildName, $description, $isPublic, $buildId]);
         header("Location: /build.php?build_id=$buildId");
     } else {
-        execute("INSERT INTO builds (user_id, build_name, description, is_public) VALUES (:user_id, :name, :desc, :public)",
-               [':user_id' => $userId, ':name' => $buildName, ':desc' => $description, ':public' => $isPublic]);
-        $db = getDB();
-        $newBuildId = $db->lastInsertRowID();
+        execute("INSERT INTO builds (user_id, build_name, description, is_public) VALUES (?, ?, ?, ?)",
+               [$userId, $buildName, $description, $isPublic]);
+        $newBuildId = lastInsertId();
         header("Location: /build.php?build_id=$newBuildId");
     }
 } else {

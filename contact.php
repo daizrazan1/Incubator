@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($subject && $message) {
         try {
-            execute("INSERT INTO support_tickets (user_id, subject, message) VALUES (:user_id, :subject, :message)",
-                   [':user_id' => $userId, ':subject' => $subject, ':message' => $message]);
+            execute("INSERT INTO support_tickets (user_id, subject, message) VALUES (?, ?, ?)",
+                   [$userId, $subject, $message]);
             $submitted = true;
         } catch (Exception $e) {
             $error = true;
