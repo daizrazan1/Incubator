@@ -1,6 +1,41 @@
-modules = ["php-8.2", "web", "nodejs-20", "nix"]
+run = "php -S 0.0.0.0:8000 -t ."
+
+entrypoint = "index.php"
+
+[nix]
+channel = "stable-22_11"
+
+[deployment]
+run = ["php", "-S", "0.0.0.0:8000", "-t", "."]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
 [agent]
 expertMode = true
 
-[nix]
-channel = "stable-25_05"
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "web"
+
+[[workflows.workflow]]
+name = "web"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "php -S 0.0.0.0:5000"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
