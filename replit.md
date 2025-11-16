@@ -6,11 +6,14 @@ PC Part Sniper is a web-based PC building and part comparison platform that help
 
 **Status**: MVP Complete and Functional ✓
 
+**Last Updated**: November 16, 2025 - Migrated to MySQL database and implemented user authentication system
+
 The MVP includes:
 - Full-featured part search with category, brand, and price filters
 - Custom build creation and management with real-time compatibility checking
 - Advanced compatibility validation (CPU/Motherboard sockets, RAM DDR types, PSU wattage, form factors)
 - Multi-merchant pricing with affiliate link tracking
+- **User registration and login system with secure authentication**
 - User profile with saved builds and reviews
 - Featured/trending builds showcase
 - Responsive dark-themed UI with gradient accents
@@ -90,14 +93,27 @@ Preferred communication style: Simple, everyday language.
 ### Authentication & Authorization
 
 **Session Management:**
-- PHP session-based authentication (standard implementation)
-- Optional user_id in click tracking suggests authenticated and guest user support
-- LocalStorage fallback for unauthenticated build creation
+- PHP session-based authentication with secure session handling
+- Session regeneration on login to prevent session fixation attacks
+- Session destruction on logout for security
+- Demo user available (username: demo_user, password: demo123)
+
+**Authentication Pages:**
+- `register.php` - User registration with validation (username, email, password)
+- `login.php` - User login with bcrypt password verification and redirect protection
+- `logout.php` - Session cleanup and logout
 
 **Authorization Model:**
 - Public read access to parts catalog and featured builds
 - User-scoped build management (builds tied to user_id or session)
+- Navigation displays Login/Register for guests, username and Logout for authenticated users
 - No explicit role-based access control in MVP
+
+**Security Features:**
+- Bcrypt password hashing (PASSWORD_DEFAULT)
+- Prepared statements for SQL injection prevention
+- Open redirect protection on login redirects
+- Session fixation protection via session_regenerate_id()
 
 ## External Dependencies
 
@@ -115,8 +131,28 @@ Preferred communication style: Simple, everyday language.
 ### Database System
 
 **Database Technology:**
-- SQL-based relational database (MySQL/PostgreSQL implied from SQL SELECT syntax)
-- Standard RDBMS features: JOINs, transactions for data integrity
+- **External MySQL Database** (Hostinger-hosted)
+- Host: srv941.hstgr.io
+- Database: u237055794_comp
+- Connection via MySQLi with UTF-8 (utf8mb4) character set
+- Standard RDBMS features: JOINs, transactions, foreign keys, indexes
+
+**Database Tables:**
+1. `users` - User accounts with authentication
+2. `merchants` - Retailer/merchant information
+3. `parts` - PC component catalog
+4. `part_prices` - Multi-merchant pricing
+5. `price_history` - Historical price tracking
+6. `builds` - User PC builds
+7. `build_parts` - Build-to-parts junction table
+8. `reviews` - User reviews for parts
+9. `click_tracking` - Affiliate link analytics
+10. `support_tickets` - Customer support system
+
+**Database Files:**
+- `db_config.php` - Database connection and helper functions
+- `init_mysql.php` - Database schema initialization
+- `seed_mysql.php` - Sample data seeding script
 
 ### Frontend Libraries
 
