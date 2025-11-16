@@ -42,6 +42,11 @@ include 'includes/header.php';
             <div class="build-section">
                 <h2>Send us a message</h2>
                 
+                <?php if (!isLoggedIn()): ?>
+                    <div class="alert alert-error" style="text-align: center;">
+                        <a href="/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" style="color: var(--highlight); text-decoration: underline;">Log in</a> to send us a message
+                    </div>
+                <?php else: ?>
                 <form method="POST">
                     <div class="form-group">
                         <label>Subject</label>
@@ -55,6 +60,7 @@ include 'includes/header.php';
                     
                     <button type="submit" class="btn" style="width: 100%;">Send Message</button>
                 </form>
+                <?php endif; ?>
             </div>
             
             <div class="build-section">

@@ -10,7 +10,13 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <a href="/index.php"><span style="color: #FF3B3B; font-size: 1.3rem;">⊕</span> PC Part Sniper</a>
+                <a href="/index.php">
+                    <span style="position: relative; display: inline-block; width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
+                        <span style="color: #FF3B3B; font-size: 1.8rem; font-weight: bold; position: absolute; left: 0; top: -8px;">⊕</span>
+                        <span style="color: #FF3B3B; font-size: 1.2rem; font-weight: bold; position: absolute; left: 7px; top: -2px;">+</span>
+                    </span>
+                    PC Part Sniper
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="/index.php">Home</a></li>
@@ -30,6 +36,9 @@
                     <li><a href="/login.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Login</a></li>
                     <li><a href="/register.php" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">Register</a></li>
                 <?php endif; ?>
+                <li>
+                    <button id="themeToggle" style="background: none; border: 2px solid var(--accent); color: var(--accent); padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; transition: all 0.3s;">🌙</button>
+                </li>
             </ul>
         </div>
     </nav>

@@ -19,7 +19,7 @@ if (!$build) {
 $buildParts = fetchAll("SELECT bp.*, p.* 
     FROM build_parts bp 
     JOIN parts p ON bp.part_id = p.part_id 
-    WHERE bp.build_id = :id", [':id' => $buildId]);
+    WHERE bp.build_id = ?", [$buildId]);
 
 $totalPrice = 0;
 $partsMerchants = [];

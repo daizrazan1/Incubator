@@ -17,6 +17,28 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.textContent = '🌞';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                themeToggle.textContent = '🌞';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
 });
 
 function addToBuild(partId) {
