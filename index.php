@@ -22,7 +22,7 @@ include 'includes/header.php';
 
 <div class="container">
     <div class="hero">
-        <h1>⚡ PC Part Sniper</h1>
+        <h1><span style="color: #FF3B3B; font-size: 3rem;">⊕</span> PC Part Sniper</h1>
         <p>Build your dream PC with real-time pricing and compatibility checking</p>
         
         <form id="searchForm" class="search-bar">

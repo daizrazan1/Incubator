@@ -10,7 +10,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <a href="/index.php">⚡ PC Part Sniper</a>
+                <a href="/index.php"><span style="color: #FF3B3B; font-size: 1.3rem;">⊕</span> PC Part Sniper</a>
             </div>
             <ul class="nav-menu">
                 <li><a href="/index.php">Home</a></li>

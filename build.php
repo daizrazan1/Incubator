@@ -155,6 +155,11 @@ include 'includes/header.php';
                     </a>
                 <?php endif; ?>
                 
+                <?php if (!isLoggedIn()): ?>
+                    <div class="alert alert-error" style="margin-top: 1rem; text-align: center;">
+                        <a href="/login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>" style="color: var(--highlight); text-decoration: underline;">Login</a> to save your build
+                    </div>
+                <?php else: ?>
                 <form method="POST" action="/api/save_build.php" style="margin-top: 1rem;">
                     <?php if ($buildId): ?>
                         <input type="hidden" name="build_id" value="<?php echo $buildId; ?>">
@@ -183,6 +188,7 @@ include 'includes/header.php';
                     
                     <button type="submit" class="btn" style="width: 100%;">Save Build</button>
                 </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>

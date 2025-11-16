@@ -8,7 +8,7 @@ $error = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'] ?? '';
     $message = $_POST['message'] ?? '';
-    $userId = 1;
+    $userId = isLoggedIn() ? $_SESSION['user_id'] : null;
     
     if ($subject && $message) {
         try {

@@ -94,13 +94,6 @@ include 'includes/header.php';
             <p style="text-align: center; margin-top: 20px; color: var(--text-secondary);">
                 Don't have an account? <a href="register.php" style="color: var(--primary);">Register here</a>
             </p>
-            
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center;">
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 10px;">Demo Account:</p>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                    Username: <strong>demo_user</strong> | Password: <strong>demo123</strong>
-                </p>
-            </div>
         </div>
     </div>
 </div>
