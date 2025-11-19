@@ -19,8 +19,8 @@ body.light-mode {
     --accent: #0066CC;
     --secondary: #F5F5F5;
     --highlight: #00A86B;
-    --text: #1E1E1E;
-    --text-secondary: #666666;
+    --text: #000000;
+    --text-secondary: #444444;
     --border: #DDDDDD;
 }
 
@@ -58,10 +58,40 @@ body {
     color: var(--accent);
     text-decoration: none;
     transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-brand a:hover {
     color: var(--highlight);
+}
+
+.logo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    position: relative;
+}
+
+.logo-crosshair {
+    color: #FF3B3B;
+    font-size: 1.8rem;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: -4px;
+}
+
+.logo-dot {
+    color: #FF3B3B;
+    font-size: 1rem;
+    font-weight: bold;
+    position: absolute;
+    left: 9px;
+    top: 4px;
 }
 
 .nav-menu {
@@ -261,6 +291,151 @@ body {
 
 .build-item-compact.incompatible {
     border-left-color: #FF3B3B;
+}
+
+.build-item-wide {
+    background: var(--primary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 120px 80px 1fr 150px 180px;
+    gap: 1rem;
+    align-items: center;
+    border-left: 4px solid var(--secondary);
+    transition: all 0.3s;
+}
+
+.build-item-wide:hover {
+    background: var(--secondary);
+    transform: translateX(4px);
+}
+
+.build-item-wide.compatible {
+    border-left-color: var(--highlight);
+}
+
+.build-item-wide.incompatible {
+    border-left-color: #FF3B3B;
+}
+
+.part-category {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.part-image {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--secondary);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.part-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.no-image {
+    font-size: 2rem;
+    color: var(--text-secondary);
+}
+
+.part-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.part-name {
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.part-brand {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.part-issues {
+    margin-top: 0.25rem;
+}
+
+.part-issues div {
+    color: #FF3B3B;
+    font-size: 0.85rem;
+}
+
+.part-price {
+    text-align: right;
+}
+
+.price-amount {
+    color: var(--highlight);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.price-vendor {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+.part-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.build-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.build-main {
+    min-width: 0;
+}
+
+.build-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+@media (max-width: 1200px) {
+    .build-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .build-sidebar {
+        position: static;
+    }
+    
+    .build-item-wide {
+        grid-template-columns: 100px 60px 1fr;
+        gap: 0.75rem;
+    }
+    
+    .part-price,
+    .part-actions {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .part-actions {
+        flex-direction: row;
+    }
 }
 
 .btn-remove {

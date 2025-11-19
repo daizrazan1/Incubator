@@ -11,9 +11,9 @@
         <div class="container">
             <div class="nav-brand">
                 <a href="/index.php">
-                    <span style="position: relative; display: inline-block; width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;">
-                        <span style="color: #FF3B3B; font-size: 1.8rem; font-weight: bold; position: absolute; left: 0; top: -8px;">⊕</span>
-                        <span style="color: #FF3B3B; font-size: 1.2rem; font-weight: bold; position: absolute; left: 7px; top: -2px;">+</span>
+                    <span class="logo-icon">
+                        <span class="logo-crosshair">⊕</span>
+                        <span class="logo-dot">●</span>
                     </span>
                     PC Part Sniper
                 </a>
@@ -26,7 +26,7 @@
                     <li><a href="/profile.php">My Profile</a></li>
                     <li><a href="/contact.php">Contact</a></li>
                     <li>
-                        <span style="color: var(--primary); margin-right: 10px;">
+                        <span style="color: var(--text); margin-right: 10px;">
                             Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                         </span>
                         <a href="/logout.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Logout</a>

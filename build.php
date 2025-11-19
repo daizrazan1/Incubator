@@ -3,7 +3,8 @@ require_once 'db_config.php';
 require_once 'compatibility.php';
 $pageTitle = 'Build Your PC - PC Part Sniper';
 
-$buildId = $_GET['build_id'] ?? null;
+// Get build ID from session for temp builds or URL for saved builds
+$buildId = $_GET['build_id'] ?? ($_SESSION['temp_build_id'] ?? null);
 $build = null;
 $buildParts = [];
 $totalPrice = 0;
@@ -12,18 +13,29 @@ $compatibilityResult = null;
 if ($buildId) {
     $build = fetchOne("SELECT * FROM builds WHERE build_id = ?", [$buildId]);
     if ($build) {
-        $buildParts = fetchAll("SELECT bp.*, p.* 
+        $buildParts = fetchAll("SELECT bp.*, p.*, p.image_url,
+            (SELECT pp.price FROM part_prices pp WHERE pp.part_id = p.part_id ORDER BY pp.price ASC LIMIT 1) as best_price,
+            (SELECT m.merchant_name FROM part_prices pp JOIN merchants m ON pp.merchant_id = m.merchant_id WHERE pp.part_id = p.part_id ORDER BY pp.price ASC LIMIT 1) as best_merchant
             FROM build_parts bp 
             JOIN parts p ON bp.part_id = p.part_id 
             WHERE bp.build_id = ?", [$buildId]);
         
         foreach ($buildParts as $part) {
-            $totalPrice += $part['price'] ?? 0;
+            $totalPrice += $part['best_price'] ?? $part['price'] ?? 0;
         }
         
         if (!empty($buildParts)) {
             $compatibilityResult = checkCompatibility($buildParts);
         }
+    }
+} else {
+    // Create a temporary build for new users
+    if (isLoggedIn()) {
+        $currentUser = getCurrentUser();
+        execute("INSERT INTO builds (user_id, build_name, description, is_public) VALUES (?, ?, ?, ?)",
+               [$currentUser['user_id'], 'Untitled Build', '', 0]);
+        $buildId = lastInsertId();
+        $_SESSION['temp_build_id'] = $buildId;
     }
 }
 
@@ -35,8 +47,8 @@ include 'includes/header.php';
 <div class="container">
     <h1 class="section-title">Build Your PC</h1>
     
-    <div class="two-column">
-        <div>
+    <div class="build-layout">
+        <div class="build-main">
             <?php if ($build): ?>
                 <div class="build-section">
                     <h2><?php echo htmlspecialchars($build['build_name']); ?></h2>
@@ -64,32 +76,42 @@ include 'includes/header.php';
                         <?php
                         $partCompat = $compatibilityResult['part_compatibility'][$categoryPart['part_id']] ?? ['compatible' => true, 'issues' => []];
                         $compatClass = $partCompat['compatible'] ? 'compatible' : 'incompatible';
+                        $displayPrice = $categoryPart['best_price'] ?? $categoryPart['price'] ?? 0;
+                        $displayMerchant = $categoryPart['best_merchant'] ?? 'N/A';
                         ?>
-                        <div class="build-item-compact <?php echo $compatClass; ?>">
-                            <div style="min-width: 100px;">
-                                <strong style="color: var(--accent);"><?php echo $cat; ?></strong>
+                        <div class="build-item-wide <?php echo $compatClass; ?>">
+                            <div class="part-category">
+                                <strong><?php echo $cat; ?></strong>
                             </div>
-                            <div style="flex: 1;">
-                                <strong><?php echo htmlspecialchars($categoryPart['part_name']); ?></strong>
-                                <span style="color: var(--text-secondary); margin-left: 0.5rem; font-size: 0.9rem;">
+                            <div class="part-image">
+                                <?php if (!empty($categoryPart['image_url'])): ?>
+                                    <img src="<?php echo htmlspecialchars($categoryPart['image_url']); ?>" alt="<?php echo htmlspecialchars($categoryPart['part_name']); ?>">
+                                <?php else: ?>
+                                    <div class="no-image">📦</div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="part-info">
+                                <div class="part-name">
+                                    <strong><?php echo htmlspecialchars($categoryPart['part_name']); ?></strong>
+                                </div>
+                                <div class="part-brand">
                                     <?php echo htmlspecialchars($categoryPart['brand']); ?>
-                                </span>
+                                </div>
                                 <?php if (!empty($partCompat['issues'])): ?>
-                                    <div style="margin-top: 0.25rem;">
+                                    <div class="part-issues">
                                         <?php foreach ($partCompat['issues'] as $issue): ?>
-                                            <div style="color: #FF3B3B; font-size: 0.85rem;">⚠ <?php echo htmlspecialchars($issue); ?></div>
+                                            <div>⚠ <?php echo htmlspecialchars($issue); ?></div>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <?php if ($categoryPart['price']): ?>
-                                    <span class="price" style="font-size: 1rem;">
-                                        $<?php echo number_format($categoryPart['price'], 2); ?>
-                                    </span>
-                                <?php endif; ?>
+                            <div class="part-price">
+                                <div class="price-amount">$<?php echo number_format($displayPrice, 2); ?></div>
+                                <div class="price-vendor"><?php echo htmlspecialchars($displayMerchant); ?></div>
+                            </div>
+                            <div class="part-actions">
                                 <a href="/parts.php?category=<?php echo urlencode($cat); ?>&build_id=<?php echo $buildId; ?>" 
-                                   class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Change</a>
+                                   class="btn btn-secondary">Change</a>
                                 <button onclick="removePart(<?php echo $categoryPart['build_part_id']; ?>)" 
                                         class="btn-remove" title="Remove part">✕</button>
                             </div>
@@ -133,7 +155,7 @@ include 'includes/header.php';
             <?php endif; ?>
         </div>
         
-        <div>
+        <div class="build-sidebar">
             <div class="build-summary">
                 <h3>Build Summary</h3>
                 

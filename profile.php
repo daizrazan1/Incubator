@@ -2,9 +2,10 @@
 require_once 'db_config.php';
 $pageTitle = 'My Profile - PC Part Sniper';
 
-$userId = 1;
+$currentUser = getCurrentUser();
+$userId = $currentUser ? $currentUser['user_id'] : null;
 
-$user = fetchOne("SELECT * FROM users WHERE user_id = ?", [$userId]);
+$user = $userId ? fetchOne("SELECT * FROM users WHERE user_id = ?", [$userId]) : null;
 $builds = fetchAll("SELECT * FROM builds WHERE user_id = ? ORDER BY updated_at DESC", [$userId]);
 $reviews = fetchAll("SELECT r.*, p.part_name 
     FROM reviews r 
@@ -70,6 +71,18 @@ include 'includes/header.php';
                                 <a href="/checkout.php?build_id=<?php echo $build['build_id']; ?>" class="btn btn-secondary">
                                     Buy Parts
                                 </a>
+                                <form method="POST" action="/api/toggle_build_privacy.php" style="margin: 0;">
+                                    <input type="hidden" name="build_id" value="<?php echo $build['build_id']; ?>">
+                                    <button type="submit" class="btn btn-secondary" style="width: 100%;">
+                                        Make <?php echo $build['is_public'] ? 'Private' : 'Public'; ?>
+                                    </button>
+                                </form>
+                                <form method="POST" action="/api/delete_build.php" onsubmit="return confirm('Are you sure you want to delete this build?');" style="margin: 0;">
+                                    <input type="hidden" name="build_id" value="<?php echo $build['build_id']; ?>">
+                                    <button type="submit" class="btn" style="width: 100%; background: #FF3B3B; border-color: #FF3B3B;">
+                                        Delete
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     <?php endforeach; ?>
