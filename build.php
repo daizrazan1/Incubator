@@ -83,9 +83,9 @@ include 'includes/header.php';
                             <div class="part-category">
                                 <strong><?php echo $cat; ?></strong>
                             </div>
-                            <div class="part-image">
+                            <div class="part-image" style="width: 60px; height: 60px;">
                                 <?php if (!empty($categoryPart['image_url'])): ?>
-                                    <img src="<?php echo htmlspecialchars($categoryPart['image_url']); ?>" alt="<?php echo htmlspecialchars($categoryPart['part_name']); ?>">
+                                    <img src="<?php echo htmlspecialchars($categoryPart['image_url']); ?>" alt="<?php echo htmlspecialchars($categoryPart['part_name']); ?>" style="width: 100%; height: 100%; object-fit: contain;">
                                 <?php else: ?>
                                     <div class="no-image">📦</div>
                                 <?php endif; ?>

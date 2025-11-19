@@ -23,9 +23,8 @@ include 'includes/header.php';
 <div class="container">
     <div class="hero">
         <h1>
-            <span style="position: relative; display: inline-block; width: 60px; height: 60px; vertical-align: middle; margin-right: 15px;">
-                <span style="color: #FF3B3B; font-size: 4rem; font-weight: bold; position: absolute; left: 0; top: -10px;">⊕</span>
-                <span style="color: #FF3B3B; font-size: 2.5rem; font-weight: bold; position: absolute; left: 18px; top: 5px;">+</span>
+            <span style="display: inline-block; width: 50px; height: 50px; vertical-align: middle; margin-right: 15px;">
+                <img src="/assets/images/logo.png" alt="PC Part Sniper Logo" style="width: 100%; height: 100%; object-fit: contain;">
             </span>
             PC Part Sniper
         </h1>

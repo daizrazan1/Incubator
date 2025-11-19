@@ -12,8 +12,7 @@
             <div class="nav-brand">
                 <a href="/index.php">
                     <span class="logo-icon">
-                        <span class="logo-crosshair">⊕</span>
-                        <span class="logo-dot">●</span>
+                        <img src="/assets/images/logo.png" alt="PC Part Sniper Logo">
                     </span>
                     PC Part Sniper
                 </a>
