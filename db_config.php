@@ -141,7 +141,7 @@ function getCurrentUser() {
         return null;
     }
     
-    return fetchOne("SELECT user_id, username, email, created_at FROM users WHERE user_id = ?", [$_SESSION['user_id']]);
+    return fetchOne("SELECT user_id, username, email FROM users WHERE user_id = ?", [$_SESSION['user_id']]);
 }
 
 // Login user

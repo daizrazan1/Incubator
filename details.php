@@ -25,7 +25,7 @@ $reviews = fetchAll("SELECT r.*, u.username
     FROM reviews r 
     LEFT JOIN users u ON r.user_id = u.user_id 
     WHERE r.part_id = ? 
-    ORDER BY r.created_at DESC", [$partId]);
+    ORDER BY r.review_id DESC", [$partId]);
 
 $avgRating = fetchOne("SELECT AVG(rating) as avg FROM reviews WHERE part_id = ?", [$partId]);
 
@@ -37,7 +37,7 @@ include 'includes/header.php';
 <div class="container">
     <div class="two-column">
         <div>
-            <?php if ($part['image_url']): ?>
+            <?php if (!empty($part['image_url'])): ?>
                 <img src="<?php echo htmlspecialchars($part['image_url']); ?>" 
                      alt="<?php echo htmlspecialchars($part['part_name']); ?>" 
                      style="width: 100%; border-radius: 10px; margin-bottom: 2rem;">

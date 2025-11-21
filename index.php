@@ -7,15 +7,15 @@ $featuredBuilds = fetchAll("SELECT b.*, u.username
     FROM builds b 
     LEFT JOIN users u ON b.user_id = u.user_id 
     WHERE b.is_public = ? 
-    ORDER BY b.created_at DESC 
+    ORDER BY b.build_id DESC 
     LIMIT 6", [1]);
 
-$trendingParts = fetchAll("SELECT p.*, COUNT(bp.build_part_id) as popularity
+$trendingParts = fetchAll("SELECT p.*, COUNT(bp.part_id) as popularity
     FROM parts p
     LEFT JOIN build_parts bp ON p.part_id = bp.part_id
     GROUP BY p.part_id
     ORDER BY popularity DESC
-    LIMIT 6");
+    LIMIT 9");
 
 include 'includes/header.php';
 ?>
@@ -82,7 +82,7 @@ include 'includes/header.php';
         <?php else: ?>
             <?php foreach ($trendingParts as $part): ?>
                 <div class="card">
-                    <?php if ($part['image_url']): ?>
+                    <?php if (!empty($part['image_url'])): ?>
                         <img src="<?php echo htmlspecialchars($part['image_url']); ?>" alt="<?php echo htmlspecialchars($part['part_name']); ?>">
                     <?php endif; ?>
                     <h3><?php echo htmlspecialchars($part['part_name']); ?></h3>

@@ -49,7 +49,7 @@ if ($isUsed !== '') {
     $params[] = $isUsed;
 }
 
-$sql .= " GROUP BY p.part_id ORDER BY p.created_at DESC";
+$sql .= " GROUP BY p.part_id ORDER BY p.part_id DESC";
 
 $parts = fetchAll($sql, $params);
 
@@ -119,7 +119,7 @@ include 'includes/header.php';
         <div class="grid">
             <?php foreach ($parts as $part): ?>
                 <div class="card">
-                    <?php if ($part['image_url']): ?>
+                    <?php if (!empty($part['image_url'])): ?>
                         <img src="<?php echo htmlspecialchars($part['image_url']); ?>" alt="<?php echo htmlspecialchars($part['part_name']); ?>">
                     <?php endif; ?>
 
@@ -128,7 +128,7 @@ include 'includes/header.php';
 
                     <div>
                         <span class="badge badge-new"><?php echo htmlspecialchars($part['category']); ?></span>
-                        <?php if ($part['is_used']): ?>
+                        <?php if (!empty($part['is_used'])): ?>
                             <span class="badge badge-used">Used</span>
                         <?php endif; ?>
                     </div>

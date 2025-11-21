@@ -1,0 +1,220 @@
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+G.Skill Trident Z5 RGB 64GB
+G.Skill Trident Z5
+
+RAM
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$269.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+NVIDIA RTX 4070 Ti
+NVIDIA RTX 4070 Ti
+
+GPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$813.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+Intel Core i5-14600K
+Intel i5-14600K
+
+CPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$308.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+AMD Ryzen 7 7800X3D
+AMD 7800X3D
+
+CPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$411.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+Noctua NH-D15
+Noctua NH-D15
+
+Cooling
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$153.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+NZXT H7 Flow
+NZXT H7 Flow
+
+Case
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$152.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+Corsair RM1000x
+Corsair RM1000x
+
+PSU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$168.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+Samsung 990 PRO 2TB
+Samsung 990 PRO
+
+Storage
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$171.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+Corsair Vengeance DDR5 32GB
+Corsair Vengeance DDR5
+
+RAM
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$158.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+MSI MPG Z790 CARBON
+MSI Z790 CARBON
+
+Motherboard
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$349.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+ASUS ROG STRIX X670E-E
+ASUS X670E-E
+
+Motherboard
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$421.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+AMD Radeon RX 7900 XTX
+AMD RX 7900 XTX
+
+GPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$958.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+NVIDIA RTX 4090
+NVIDIA RTX 4090
+
+GPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$1,562.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+Intel Core i9-14900K
+Intel i9-14900K
+
+CPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131
+$631.99
+View Details
+Add to Build
+
+Warning
+: Undefined array key "image_url" in
+/home/runner/workspace/parts.php
+on line
+122
+
+AMD Ryzen 9 7950X
+AMD 7950X
+
+CPU
+Warning: Undefined array key "is_used" in /home/runner/workspace/parts.php on line 131

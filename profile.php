@@ -6,12 +6,12 @@ $currentUser = getCurrentUser();
 $userId = $currentUser ? $currentUser['user_id'] : null;
 
 $user = $userId ? fetchOne("SELECT * FROM users WHERE user_id = ?", [$userId]) : null;
-$builds = fetchAll("SELECT * FROM builds WHERE user_id = ? ORDER BY updated_at DESC", [$userId]);
+$builds = fetchAll("SELECT * FROM builds WHERE user_id = ? ORDER BY build_id DESC", [$userId]);
 $reviews = fetchAll("SELECT r.*, p.part_name 
     FROM reviews r 
     JOIN parts p ON r.part_id = p.part_id 
     WHERE r.user_id = ? 
-    ORDER BY r.created_at DESC", [$userId]);
+    ORDER BY r.review_id DESC", [$userId]);
 
 include 'includes/header.php';
 ?>
@@ -61,7 +61,7 @@ include 'includes/header.php';
                                     </div>
                                 <?php endif; ?>
                                 <small style="color: var(--text-secondary);">
-                                    Updated: <?php echo date('M d, Y', strtotime($build['updated_at'])); ?>
+                                    Build ID: <?php echo htmlspecialchars($build['build_id']); ?>
                                 </small>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 0.5rem;">

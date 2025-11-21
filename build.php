@@ -13,7 +13,7 @@ $compatibilityResult = null;
 if ($buildId) {
     $build = fetchOne("SELECT * FROM builds WHERE build_id = ?", [$buildId]);
     if ($build) {
-        $buildParts = fetchAll("SELECT bp.*, p.*, p.image_url,
+        $buildParts = fetchAll("SELECT bp.*, p.*,
             (SELECT pp.price FROM part_prices pp WHERE pp.part_id = p.part_id ORDER BY pp.price ASC LIMIT 1) as best_price,
             (SELECT m.merchant_name FROM part_prices pp JOIN merchants m ON pp.merchant_id = m.merchant_id WHERE pp.part_id = p.part_id ORDER BY pp.price ASC LIMIT 1) as best_merchant
             FROM build_parts bp 
@@ -32,10 +32,14 @@ if ($buildId) {
     // Create a temporary build for new users
     if (isLoggedIn()) {
         $currentUser = getCurrentUser();
-        execute("INSERT INTO builds (user_id, build_name, description, is_public) VALUES (?, ?, ?, ?)",
-               [$currentUser['user_id'], 'Untitled Build', '', 0]);
-        $buildId = lastInsertId();
-        $_SESSION['temp_build_id'] = $buildId;
+        if ($currentUser && isset($currentUser['user_id']) && $currentUser['user_id'] > 0) {
+            execute("INSERT INTO builds (user_id, build_name, description, is_public) VALUES (?, ?, ?, ?)",
+                   [$currentUser['user_id'], 'Untitled Build', '', 0]);
+            $buildId = lastInsertId();
+            if ($buildId > 0) {
+                $_SESSION['temp_build_id'] = $buildId;
+            }
+        }
     }
 }
 
@@ -112,7 +116,7 @@ include 'includes/header.php';
                             <div class="part-actions">
                                 <a href="/parts.php?category=<?php echo urlencode($cat); ?>&build_id=<?php echo $buildId; ?>" 
                                    class="btn btn-secondary">Change</a>
-                                <button onclick="removePart(<?php echo $categoryPart['build_part_id']; ?>)" 
+                                <button onclick="removePart(<?php echo $categoryPart['id']; ?>)" 
                                         class="btn-remove" title="Remove part">✕</button>
                             </div>
                         </div>
