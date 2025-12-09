@@ -1,3 +1,4 @@
+
 <?php
 require_once 'db_config.php';
 
@@ -5,13 +6,27 @@ echo "Initializing MySQL database...\n\n";
 
 $db = getDB();
 
+// Drop existing users table to reset AUTO_INCREMENT
+$db->query("DROP TABLE IF EXISTS click_tracking");
+$db->query("DROP TABLE IF EXISTS support_tickets");
+$db->query("DROP TABLE IF EXISTS reviews");
+$db->query("DROP TABLE IF EXISTS build_parts");
+$db->query("DROP TABLE IF EXISTS builds");
+$db->query("DROP TABLE IF EXISTS price_history");
+$db->query("DROP TABLE IF EXISTS part_prices");
+$db->query("DROP TABLE IF EXISTS parts");
+$db->query("DROP TABLE IF EXISTS merchants");
+$db->query("DROP TABLE IF EXISTS users");
+echo "✓ Dropped existing tables\n\n";
+
 // Users table
-$db->query("CREATE TABLE IF NOT EXISTS users (
-    user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+$db->query("CREATE TABLE users (
+    user_id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id),
     INDEX idx_username (username),
     INDEX idx_email (email)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");

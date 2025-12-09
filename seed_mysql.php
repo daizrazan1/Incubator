@@ -3,10 +3,16 @@ require_once 'db_config.php';
 
 echo "Seeding MySQL database with sample data...\n\n";
 
-// Insert demo user
-execute("INSERT IGNORE INTO users (user_id, username, email, password_hash) VALUES (?, ?, ?, ?)", 
-    [1, 'demo_user', 'demo@pcpartsniper.com', password_hash('demo123', PASSWORD_DEFAULT)]);
-echo "✓ Created demo user (username: demo_user, password: demo123)\n";
+// Insert demo user (let AUTO_INCREMENT handle the ID)
+$demoUserExists = fetchOne("SELECT user_id FROM users WHERE username = ?", ['demo_user']);
+if (!$demoUserExists) {
+    execute("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)", 
+        ['demo_user', 'demo@pcpartsniper.com', password_hash('demo123', PASSWORD_DEFAULT)]);
+    echo "✓ Created demo user (username: demo_user, password: demo123)\n";
+} else {
+    echo "✓ Demo user already exists\n";
+}
+$demoUserId = fetchOne("SELECT user_id FROM users WHERE username = ?", ['demo_user'])['user_id'];
 
 // Insert merchants
 execute("INSERT IGNORE INTO merchants (merchant_id, merchant_name, website_url) VALUES (?, ?, ?)", 
