@@ -7,14 +7,14 @@ $db = getDB();
 
 // Users table
 $db->query("CREATE TABLE IF NOT EXISTS users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_username (username),
     INDEX idx_email (email)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 echo "✓ Created users table\n";
 
 // Merchants table

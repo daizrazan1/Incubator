@@ -36,16 +36,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 // Create user
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                $result = execute("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)", 
-                    [$username, $email, $passwordHash]);
                 
-                if ($result) {
-                    $userId = lastInsertId();
-                    loginUser($userId, $username);
-                    header('Location: index.php');
-                    exit;
-                } else {
-                    $error = 'Registration failed. Please try again.';
+                try {
+                    $result = execute("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)", 
+                        [$username, $email, $passwordHash]);
+                    
+                    if ($result) {
+                        $userId = lastInsertId();
+                        if ($userId > 0) {
+                            loginUser($userId, $username);
+                            header('Location: index.php');
+                            exit;
+                        } else {
+                            $error = 'Registration failed. Could not create user account.';
+                        }
+                    } else {
+                        $error = 'Registration failed. Please try again.';
+                    }
+                } catch (Exception $e) {
+                    error_log("Registration error: " . $e->getMessage());
+                    $error = 'Registration failed. Please try again later.';
                 }
             }
         }

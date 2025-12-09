@@ -28,14 +28,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize redirect parameter to prevent open redirect attacks
             $redirect = $_GET['redirect'] ?? 'index.php';
             
-            // Normalize: replace backslashes with forward slashes
+            // Normalize: replace backslashes with forward slashes and trim
             $redirect = str_replace('\\', '/', trim($redirect));
+            
+            // Remove any leading slashes to prevent protocol-relative URLs
+            $redirect = ltrim($redirect, '/');
             
             // Parse the URL to detect scheme/host
             $parsed = parse_url($redirect);
             
             // Only allow redirects with no scheme and no host (i.e., relative paths only)
-            if (isset($parsed['scheme']) || isset($parsed['host']) || strpos($redirect, '//') === 0) {
+            if (isset($parsed['scheme']) || isset($parsed['host'])) {
+                $redirect = 'index.php';
+            }
+            
+            // Ensure the redirect starts with a filename (no absolute paths)
+            if (empty($redirect) || $redirect === '/' || strpos($redirect, '//') === 0) {
                 $redirect = 'index.php';
             }
             
