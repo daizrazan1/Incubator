@@ -44,12 +44,12 @@ if (!$part) {
     exit;
 }
 
-$existing = fetchOne("SELECT id FROM build_parts WHERE build_id = ? AND category = ?", 
+$existing = fetchOne("SELECT build_part_id FROM build_parts WHERE build_id = ? AND category = ?", 
                      [$buildId, $part['category']]);
 
 if ($existing) {
-    execute("UPDATE build_parts SET part_id = ? WHERE id = ?", 
-           [$partId, $existing['id']]);
+    execute("UPDATE build_parts SET part_id = ? WHERE build_part_id = ?", 
+           [$partId, $existing['build_part_id']]);
 } else {
     execute("INSERT INTO build_parts (build_id, part_id, category) VALUES (?, ?, ?)",
            [$buildId, $partId, $part['category']]);
