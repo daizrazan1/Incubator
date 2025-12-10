@@ -73,34 +73,6 @@ function addToBuild(partId) {
 }
 
 function removePart(buildPartId) {
-    if (!confirm('Remove this part from your build?')) {
-        return;
-    }
-    
-    fetch('/api/remove_from_build.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            build_part_id: buildPartId
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            window.location.reload();
-        } else {
-            alert('Error: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to remove part from build');
-    });
-}
-
-function removePart(buildPartId) {
     if (!confirm('Are you sure you want to remove this part?')) {
         return;
     }

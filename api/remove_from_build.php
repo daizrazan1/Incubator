@@ -10,7 +10,7 @@ if (!$buildPartId) {
     exit;
 }
 
-execute("DELETE FROM build_parts WHERE id = ?", [$buildPartId]);
+execute("DELETE FROM build_parts WHERE build_part_id = ?", [$buildPartId]);
 
 echo json_encode(['success' => true]);
 ?>

@@ -116,7 +116,7 @@ include 'includes/header.php';
                             <div class="part-actions">
                                 <a href="/parts.php?category=<?php echo urlencode($cat); ?>&build_id=<?php echo $buildId; ?>" 
                                    class="btn btn-secondary">Change</a>
-                                <button onclick="removePart(<?php echo $categoryPart['id']; ?>)" 
+                                <button onclick="removePart(<?php echo $categoryPart['build_part_id']; ?>)" 
                                         class="btn-remove" title="Remove part">✕</button>
                             </div>
                         </div>
