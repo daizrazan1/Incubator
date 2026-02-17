@@ -6,7 +6,7 @@ PC Part Sniper is a web-based PC building and part comparison platform that help
 
 **Status**: MVP Complete and Functional ✓
 
-**Last Updated**: November 16, 2025 - Migrated to MySQL database and implemented user authentication system
+**Last Updated**: January 30, 2026 - Added admin dashboard with revenue tracking, seller rankings, contact messages, and traffic analytics
 
 The MVP includes:
 - Full-featured part search with category, brand, and price filters
@@ -17,6 +17,7 @@ The MVP includes:
 - User profile with saved builds and reviews
 - Featured/trending builds showcase
 - Responsive dark-themed UI with gradient accents
+- **Admin dashboard** with revenue tracking, seller rankings, contact messages, and traffic analytics
 
 ## User Preferences
 
@@ -148,6 +149,7 @@ Preferred communication style: Simple, everyday language.
 8. `reviews` - User reviews for parts
 9. `click_tracking` - Affiliate link analytics
 10. `support_tickets` - Customer support system
+11. `page_visits` - Website traffic analytics (page URL, user, IP, timestamp)
 
 **Database Files:**
 - `db_config.php` - Database connection and helper functions

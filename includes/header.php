@@ -1,3 +1,18 @@
+<?php
+// Track page visit for analytics
+if (function_exists('isLoggedIn')) {
+    $pageUrl = $_SERVER['REQUEST_URI'] ?? '/';
+    $userId = isLoggedIn() ? ($_SESSION['user_id'] ?? null) : null;
+    $ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+    $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    try {
+        execute("INSERT INTO page_visits (page_url, user_id, ip_address, user_agent) VALUES (?, ?, ?, ?)",
+               [$pageUrl, $userId, $ipAddress, $userAgent]);
+    } catch (Exception $e) {
+        // Silently fail if table doesn't exist yet
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
