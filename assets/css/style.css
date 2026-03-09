@@ -238,13 +238,22 @@ body {
 .card h3 {
     color: var(--accent);
     margin-bottom: 0.4rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .card p {
-    color: var(--text-secondary);
+    color: var(--text);
     margin-bottom: 0.75rem;
     font-size: 0.9rem;
+}
+
+.card .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    margin: 0.25rem 0.25rem 0.25rem 0;
 }
 
 .price {
@@ -252,6 +261,15 @@ body {
     font-weight: bold;
     color: var(--highlight);
     margin: 1rem 0;
+}
+
+body.light-mode .price,
+:root .price {
+    color: var(--accent);
+}
+
+body.dark-mode .price {
+    color: var(--highlight);
 }
 
 .filters {
