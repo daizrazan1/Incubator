@@ -38,9 +38,11 @@ include 'includes/header.php';
     <div class="two-column">
         <div>
             <?php if (!empty($part['image_url'])): ?>
-                <img src="<?php echo htmlspecialchars($part['image_url']); ?>" 
-                     alt="<?php echo htmlspecialchars($part['part_name']); ?>" 
-                     style="width: 100%; border-radius: 10px; margin-bottom: 2rem;">
+                <div style="width: 100%; height: 400px; background: var(--secondary); border-radius: 10px; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <img src="<?php echo htmlspecialchars($part['image_url']); ?>" 
+                         alt="<?php echo htmlspecialchars($part['part_name']); ?>" 
+                         style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
             <?php endif; ?>
             
             <h1><?php echo htmlspecialchars($part['part_name']); ?></h1>
