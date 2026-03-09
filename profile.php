@@ -17,7 +17,7 @@ include 'includes/header.php';
 ?>
 
 <div class="container">
-    <h1 class="section-title">My Profile</h1>
+    <h1 class="section-title"><?php echo __('my_profile'); ?></h1>
     
     <div class="two-column">
         <div>
@@ -57,7 +57,7 @@ include 'includes/header.php';
                                 </div>
                                 <?php if ($total > 0): ?>
                                     <div class="price" style="margin-top: 0.5rem;">
-                                        $<?php echo number_format($total, 2); ?>
+                                        <?php echo formatCurrency($total); ?>
                                     </div>
                                 <?php endif; ?>
                                 <small style="color: var(--text-secondary);">

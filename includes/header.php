@@ -1,4 +1,8 @@
 <?php
+require_once 'db_config.php';
+require_once 'includes/translations.php';
+startSession();
+
 // Track page visit for analytics
 if (function_exists('isLoggedIn')) {
     $pageUrl = $_SERVER['REQUEST_URI'] ?? '/';
@@ -12,16 +16,18 @@ if (function_exists('isLoggedIn')) {
         // Silently fail if table doesn't exist yet
     }
 }
+
+$currentTheme = $_SESSION['theme'] ?? 'light';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $_SESSION['lang'] ?? 'en'; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'PC Part Sniper'; ?></title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
+<body class="<?php echo $currentTheme === 'dark' ? 'dark-mode' : ''; ?>">
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
@@ -33,25 +39,25 @@ if (function_exists('isLoggedIn')) {
                 </a>
             </div>
             <ul class="nav-menu">
-                <li><a href="/index.php">Home</a></li>
-                <li><a href="/parts.php">Browse Parts</a></li>
-                <li><a href="/build.php">Build PC</a></li>
+                <li><a href="/index.php"><?php echo __('home'); ?></a></li>
+                <li><a href="/parts.php"><?php echo __('browse_parts'); ?></a></li>
+                <li><a href="/build.php"><?php echo __('build_pc'); ?></a></li>
                 <?php if (isLoggedIn()): ?>
-                    <li><a href="/profile.php">My Profile</a></li>
-                    <li><a href="/contact.php">Contact</a></li>
+                    <li><a href="/profile.php"><?php echo __('my_profile'); ?></a></li>
+                    <li><a href="/contact.php"><?php echo __('contact'); ?></a></li>
                     <li>
                         <span style="color: var(--text); margin-right: 10px;">
                             Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                         </span>
-                        <a href="/logout.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Logout</a>
+                        <a href="/logout.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;"><?php echo __('logout'); ?></a>
                     </li>
                 <?php else: ?>
-                    <li><a href="/contact.php">Contact</a></li>
-                    <li><a href="/login.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Login</a></li>
-                    <li><a href="/register.php" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">Register</a></li>
+                    <li><a href="/contact.php"><?php echo __('contact'); ?></a></li>
+                    <li><a href="/login.php" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;"><?php echo __('login'); ?></a></li>
+                    <li><a href="/register.php" class="btn" style="padding: 8px 16px; font-size: 0.9rem;"><?php echo __('register'); ?></a></li>
                 <?php endif; ?>
                 <li>
-                    <button id="themeToggle" style="background: none; border: 2px solid var(--accent); color: var(--accent); padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; transition: all 0.3s;">🌙</button>
+                    <a href="/settings.php" class="settings-link" title="<?php echo __('settings'); ?>">⚙️</a>
                 </li>
             </ul>
         </div>

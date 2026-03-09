@@ -38,9 +38,11 @@ include 'includes/header.php';
     <div class="two-column">
         <div>
             <?php if (!empty($part['image_url'])): ?>
-                <img src="<?php echo htmlspecialchars($part['image_url']); ?>" 
-                     alt="<?php echo htmlspecialchars($part['part_name']); ?>" 
-                     style="width: 100%; border-radius: 10px; margin-bottom: 2rem;">
+                <div style="width: 100%; height: 400px; background: var(--secondary); border-radius: 10px; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <img src="<?php echo htmlspecialchars($part['image_url']); ?>" 
+                         alt="<?php echo htmlspecialchars($part['part_name']); ?>" 
+                         style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
             <?php endif; ?>
             
             <h1><?php echo htmlspecialchars($part['part_name']); ?></h1>
@@ -148,7 +150,7 @@ include 'includes/header.php';
                 
                 <?php if (empty($merchants)): ?>
                     <?php if ($part['price']): ?>
-                        <div class="total-price">$<?php echo number_format($part['price'], 2); ?></div>
+                        <div class="total-price"><?php echo formatCurrency($part['price']); ?></div>
                         <p style="color: var(--text-secondary); margin-bottom: 1rem;">Base price</p>
                     <?php else: ?>
                         <p style="color: var(--text-secondary);">Price not available</p>
@@ -160,7 +162,7 @@ include 'includes/header.php';
                                 <div>
                                     <strong><?php echo htmlspecialchars($merchant['merchant_name']); ?></strong>
                                     <div class="price" style="margin: 0.5rem 0;">
-                                        $<?php echo number_format($merchant['price'], 2); ?>
+                                        <?php echo formatCurrency($merchant['price']); ?>
                                     </div>
                                 </div>
                                 <a href="<?php echo htmlspecialchars($merchant['url']); ?>" 

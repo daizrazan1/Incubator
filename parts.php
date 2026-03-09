@@ -60,7 +60,7 @@ include 'includes/header.php';
 ?>
 
 <div class="container">
-    <h1 class="section-title">Browse PC Parts</h1>
+    <h1 class="section-title"><?php echo __('browse_parts'); ?></h1>
 
     <div class="filters">
         <h3>Filters</h3>
@@ -134,7 +134,7 @@ include 'includes/header.php';
                     </div>
 
                     <?php if ($part['min_price'] || $part['price']): ?>
-                        <div class="price">$<?php echo number_format($part['min_price'] ?? $part['price'], 2); ?></div>
+                        <div class="price"><?php echo formatCurrency($part['min_price'] ?? $part['price']); ?></div>
                     <?php endif; ?>
 
                     <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
@@ -211,307 +211,39 @@ function removeFromBuild(partId, buildId) {
 </script>
 
 <style>
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--text-primary);
-}
-
 .filters {
-    background-color: var(--background-secondary);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: var(--secondary);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
 }
 
 .filters h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: var(--text-primary);
+    margin-bottom: 1rem;
+    color: var(--accent);
 }
 
 .filter-group {
     display: flex;
+    gap: 1rem;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
-    align-items: center;
+    margin-bottom: 1rem;
 }
 
-.filter-group input[type="text"],
-.filter-group input[type="number"],
-.filter-group select {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    background-color: var(--background-primary);
-    color: var(--text-primary);
-    flex: 1; /* Allow items to grow */
-    min-width: 150px; /* Minimum width for better responsiveness */
+.filter-group select,
+.filter-group input {
+    padding: 0.75rem;
+    border: 2px solid var(--primary);
+    background: var(--primary);
+    color: var(--text);
+    border-radius: 5px;
+    flex: 1;
+    min-width: 150px;
 }
 
-.filter-group button[type="submit"] {
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.filter-group button[type="submit"]:hover {
-    background-color: var(--primary-color-dark);
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-.card {
-    background-color: var(--background-secondary);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Pushes buttons to the bottom */
-}
-
-.card img {
-    max-width: 100%;
-    height: 150px;
-    object-fit: contain;
-    margin-bottom: 15px;
-    border-radius: 4px;
-}
-
-.card h3 {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.3rem;
-    color: var(--text-primary);
-}
-
-.card p {
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-}
-
-.card .badge {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    margin-right: 5px;
-}
-
-.card .badge-used {
-    background-color: var(--warning-color);
-}
-
-.card .price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.card .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    border: none; /* Ensure button styling is consistent */
-    text-align: center;
-    flex: 1; /* Allows buttons to share space */
-}
-
-.card .btn-secondary {
-    background-color: var(--secondary-color);
-}
-
-.card .btn:hover {
-    background-color: var(--primary-color-dark);
-}
-
-.card .btn-secondary:hover {
-    background-color: var(--secondary-color-dark);
-}
-
-.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.alert-error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-}
-
-/* Styles for build page */
-.build-container {
-    display: flex;
-    gap: 30px;
-    margin-top: 30px;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-}
-
-.build-parts-section {
-    flex: 2; /* Takes up more space */
-    min-width: 300px; /* Minimum width */
-}
-
-.build-summary-section {
-    flex: 1; /* Takes up less space */
-    min-width: 250px; /* Minimum width */
-    background-color: var(--background-secondary);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: fit-content; /* Adjust height based on content */
-}
-
-.build-parts-section h2, .build-summary-section h2 {
-    margin-top: 0;
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.build-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: var(--background-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    margin-bottom: 15px;
-    transition: box-shadow 0.3s ease;
-}
-
-.build-item:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.build-item-details {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.build-item-details img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    border-radius: 4px;
-}
-
-.build-item-details span {
-    font-weight: bold;
-    color: var(--text-primary);
-}
-
-.build-item-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.build-item-actions .remove-btn {
-    background-color: var(--danger-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-
-.build-item-actions .remove-btn:hover {
-    background-color: var(--danger-color-dark);
-}
-
-.build-item-actions .view-details-btn {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-}
-
-.build-item-actions .view-details-btn:hover {
-    background-color: var(--secondary-color-dark);
-}
-
-.summary-total {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--text-primary);
-    margin-top: 20px;
-    text-align: right;
-}
-
-.save-build-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-}
-
-.save-build-btn:hover {
-    background-color: var(--primary-color-dark);
-}
-
-/* Specific styles for the X symbol */
-.remove-symbol {
-    font-size: 1.2rem;
-    line-height: 1;
-    cursor: pointer;
-    color: var(--text-secondary);
-    padding: 5px;
-    transition: color 0.3s ease;
-}
-
-.remove-symbol:hover {
-    color: var(--danger-color);
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: var(--accent);
 }
 </style>
