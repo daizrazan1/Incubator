@@ -28,15 +28,15 @@ include 'includes/header.php';
             </span>
             PC Part Sniper
         </h1>
-        <p>Build your dream PC with real-time pricing and compatibility checking</p>
+        <p><?php echo __('search_placeholder'); ?></p>
         
         <form id="searchForm" class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search for parts (e.g., RTX 5090, AMD Ryzen...)" required>
-            <button type="submit" class="btn">Search</button>
+            <input type="text" id="searchInput" placeholder="<?php echo __('search_placeholder'); ?>" required>
+            <button type="submit" class="btn"><?php echo __('home'); ?></button>
         </form>
     </div>
 
-    <h2 class="section-title">Featured Builds</h2>
+    <h2 class="section-title"><?php echo __('featured_builds'); ?></h2>
     <div class="grid">
         <?php if (empty($featuredBuilds)): ?>
             <div class="card">
@@ -71,7 +71,7 @@ include 'includes/header.php';
         <?php endif; ?>
     </div>
 
-    <h2 class="section-title">Trending Parts</h2>
+    <h2 class="section-title"><?php echo __('trending_parts'); ?></h2>
     <div class="grid">
         <?php if (empty($trendingParts)): ?>
             <div class="card">
@@ -88,7 +88,7 @@ include 'includes/header.php';
                     <h3><?php echo htmlspecialchars($part['part_name']); ?></h3>
                     <span class="badge badge-new"><?php echo htmlspecialchars($part['category']); ?></span>
                     <?php if ($part['price']): ?>
-                        <div class="price">$<?php echo number_format($part['price'], 2); ?></div>
+                        <div class="price"><?php echo formatCurrency($part['price']); ?></div>
                     <?php endif; ?>
                     <a href="/details.php?part_id=<?php echo $part['part_id']; ?>" class="btn btn-secondary">View Details</a>
                 </div>

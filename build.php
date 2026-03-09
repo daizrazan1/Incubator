@@ -49,7 +49,7 @@ include 'includes/header.php';
 ?>
 
 <div class="container">
-    <h1 class="section-title">Build Your PC</h1>
+    <h1 class="section-title"><?php echo __('build_pc'); ?></h1>
     
     <div class="build-layout">
         <div class="build-main">
@@ -110,7 +110,7 @@ include 'includes/header.php';
                                 <?php endif; ?>
                             </div>
                             <div class="part-price">
-                                <div class="price-amount">$<?php echo number_format($displayPrice, 2); ?></div>
+                                <div class="price-amount"><?php echo formatCurrency($displayPrice); ?></div>
                                 <div class="price-vendor"><?php echo htmlspecialchars($displayMerchant); ?></div>
                             </div>
                             <div class="part-actions">
@@ -172,7 +172,7 @@ include 'includes/header.php';
                 
                 <div style="margin: 1.5rem 0;">
                     <p style="color: var(--text-secondary);">Estimated Total</p>
-                    <div class="total-price">$<?php echo number_format($totalPrice, 2); ?></div>
+                    <div class="total-price"><?php echo formatCurrency($totalPrice); ?></div>
                 </div>
                 
                 <?php if (!empty($buildParts)): ?>

@@ -148,7 +148,7 @@ include 'includes/header.php';
                 
                 <?php if (empty($merchants)): ?>
                     <?php if ($part['price']): ?>
-                        <div class="total-price">$<?php echo number_format($part['price'], 2); ?></div>
+                        <div class="total-price"><?php echo formatCurrency($part['price']); ?></div>
                         <p style="color: var(--text-secondary); margin-bottom: 1rem;">Base price</p>
                     <?php else: ?>
                         <p style="color: var(--text-secondary);">Price not available</p>
@@ -160,7 +160,7 @@ include 'includes/header.php';
                                 <div>
                                     <strong><?php echo htmlspecialchars($merchant['merchant_name']); ?></strong>
                                     <div class="price" style="margin: 0.5rem 0;">
-                                        $<?php echo number_format($merchant['price'], 2); ?>
+                                        <?php echo formatCurrency($merchant['price']); ?>
                                     </div>
                                 </div>
                                 <a href="<?php echo htmlspecialchars($merchant['url']); ?>" 

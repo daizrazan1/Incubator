@@ -16,7 +16,10 @@ The MVP includes:
 - **User registration and login system with secure authentication**
 - User profile with saved builds and reviews
 - Featured/trending builds showcase
-- Responsive dark-themed UI with gradient accents
+- Modern, fluid light-themed user interface by default (dark mode optional)
+- Multi-language support (English, Spanish, French, Armenian)
+- Multi-currency support (USD, EUR, GBP, JPY, CAD, AUD)
+- Settings page for user preferences
 - **Admin dashboard** with revenue tracking, seller rankings, contact messages, and traffic analytics
 
 ## User Preferences

@@ -60,7 +60,7 @@ include 'includes/header.php';
 ?>
 
 <div class="container">
-    <h1 class="section-title">Browse PC Parts</h1>
+    <h1 class="section-title"><?php echo __('browse_parts'); ?></h1>
 
     <div class="filters">
         <h3>Filters</h3>
@@ -134,7 +134,7 @@ include 'includes/header.php';
                     </div>
 
                     <?php if ($part['min_price'] || $part['price']): ?>
-                        <div class="price">$<?php echo number_format($part['min_price'] ?? $part['price'], 2); ?></div>
+                        <div class="price"><?php echo formatCurrency($part['min_price'] ?? $part['price']); ?></div>
                     <?php endif; ?>
 
                     <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
