@@ -67,7 +67,7 @@ include 'includes/header.php';
                     (<?php echo count($reviews); ?> reviews)
                 </p>
             <?php endif; ?>
-
+            
             <div class="build-section">
                 <h2>Specifications</h2>
                 <table class="specs-table">
@@ -120,6 +120,27 @@ include 'includes/header.php';
 
             <div class="build-section">
                 <h2>Customer Reviews</h2>
+                
+                <!-- Add Review Form -->
+                <form action="/submit_review.php" method="POST" style="margin-bottom: 2rem;">
+                    <input type="hidden" name="part_id" value="<?php echo $partId; ?>">
+                    <input type="hidden" name="user_id" value="1"> <!-- Assume user is logged in and user ID is 1 for now -->
+                    <div style="margin-bottom: 1rem;">
+                        <label for="rating" style="display: block; margin-bottom: 0.5rem;">Rate this part:</label>
+                        <select name="rating" id="rating" style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--border-color);">
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label for="review_text" style="display: block; margin-bottom: 0.5rem;">Write a review:</label>
+                        <textarea name="review_text" id="review_text" rows="4" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid var(--border-color);"></textarea>
+                    </div>
+                    <button type="submit" style="padding: 0.5rem 1rem; background-color: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Submit Review</button>
+                </form>
                 
                 <?php if (empty($reviews)): ?>
                     <p style="color: var(--text-secondary);">No reviews yet. Be the first to review this product!</p>

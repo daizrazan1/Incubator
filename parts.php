@@ -161,7 +161,7 @@ function addToBuild(partId, buildId) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ part_id: partId, build_id: buildId }),
+        body: JSON.stringify({ part_id: partId, build_id: buildId }), 
     })
     .then(response => response.json())
     .then(data => {
@@ -192,7 +192,7 @@ function removeFromBuild(partId, buildId) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ part_id: partId, build_id: buildId }),
+        body: JSON.stringify({ part_id: partId, build_id: buildId }), 
     })
     .then(response => response.json())
     .then(data => {
